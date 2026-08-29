@@ -6,27 +6,21 @@ use Illuminate\Support\Facades\Schema;
 
 return new class extends Migration
 {
-    /**
-     * Run the migrations.
-     */
     public function up(): void
     {
-        Schema::create('jenis_pajaks', function (Blueprint $table) {
+        Schema::create('jenis_pajak', function (Blueprint $table) {
             $table->id();
             $table->string('kode_jenis_pajak')->unique();
             $table->string('nama_jenis_pajak');
             $table->text('deskripsi')->nullable();
-            $table->string('dasar_pengenaan');
-            $table->enum('status_aktif',['Aktif', 'Tidak Aktif'])->default('Aktif');    
+            $table->string('dasar_pengenaan')->comment('label basis pengenaan utama, mis. "Omzet", "Luas Media"');
+            $table->boolean('status_aktif')->default(true);
             $table->timestamps();
         });
     }
 
-    /**
-     * Reverse the migrations.
-     */
     public function down(): void
     {
-        Schema::dropIfExists('jenis_pajaks');
+        Schema::dropIfExists('jenis_pajak');
     }
 };

@@ -7,16 +7,23 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 
-class KategoriObjekPajak extends Model
+class MasaPajak extends Model
 {
     use HasFactory;
 
-    protected $table = 'kategori_objek_pajak';
+    protected $table = 'masa_pajak';
 
     protected $fillable = [
         'jenis_pajak_id',
-        'nama_kategori',
-        'deskripsi',
+        'tahun',
+        'periode',
+        'tanggal_mulai',
+        'tanggal_jatuh_tempo',
+    ];
+
+    protected $casts = [
+        'tanggal_mulai' => 'date',
+        'tanggal_jatuh_tempo' => 'date',
     ];
 
     public function jenisPajak(): BelongsTo
@@ -24,13 +31,8 @@ class KategoriObjekPajak extends Model
         return $this->belongsTo(JenisPajak::class, 'jenis_pajak_id');
     }
 
-    public function tarifPajak(): HasMany
+    public function sptpd(): HasMany
     {
-        return $this->hasMany(TarifPajak::class, 'kategori_objek_pajak_id');
-    }
-
-    public function objekPajak(): HasMany
-    {
-        return $this->hasMany(ObjekPajak::class, 'kategori_objek_pajak_id');
+        return $this->hasMany(Sptpd::class, 'masa_pajak_id');
     }
 }

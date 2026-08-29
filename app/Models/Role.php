@@ -6,19 +6,19 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 
-class Wilayah extends Model
+class Role extends Model
 {
     use HasFactory;
 
-    protected $table = 'wilayah';
+    protected $table = 'roles';
 
     protected $fillable = [
-        'nama_wilayah',
-        'kode_wilayah',
+        'nama_role',
+        'deskripsi',
     ];
 
-    public function objekPajak(): HasMany
+    public function users(): HasMany
     {
-        return $this->hasMany(ObjekPajak::class, 'wilayah_id');
+        return $this->hasMany(User::class, 'role_id');
     }
 }

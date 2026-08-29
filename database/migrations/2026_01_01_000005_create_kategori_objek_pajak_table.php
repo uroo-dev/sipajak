@@ -6,23 +6,19 @@ use Illuminate\Support\Facades\Schema;
 
 return new class extends Migration
 {
-    /**
-     * Run the migrations.
-     */
     public function up(): void
     {
-        Schema::create('kategori_objek_pajaks', function (Blueprint $table) {
+        Schema::create('kategori_objek_pajak', function (Blueprint $table) {
             $table->id();
-            $table->bigInteger('jenis_pajak');
+            $table->foreignId('jenis_pajak_id')->constrained('jenis_pajak')->cascadeOnDelete();
+            $table->string('nama_kategori');
+            $table->text('deskripsi')->nullable();
             $table->timestamps();
         });
     }
 
-    /**
-     * Reverse the migrations.
-     */
     public function down(): void
     {
-        Schema::dropIfExists('kategori_objek_pajaks');
+        Schema::dropIfExists('kategori_objek_pajak');
     }
 };
